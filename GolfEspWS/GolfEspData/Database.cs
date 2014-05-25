@@ -25,7 +25,7 @@ namespace GolfEspWS
             try
             {
                 openConnection();
-                adapter.Fill( ds );
+                adapter.Fill( ds, tableName );
             }
             catch (Exception ex)
             {
