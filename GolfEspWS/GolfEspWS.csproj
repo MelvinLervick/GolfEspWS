@@ -88,6 +88,9 @@
     <Compile Include="WsData\Common.cs" />
     <Compile Include="WsData\WsCourses.cs" />
     <Compile Include="WsData\WsTees.cs" />
+    <Compile Include="WsData\WsPDADataIn.cs" />
+    <Compile Include="WsData\WsRounds.cs" />
+    <Compile Include="WsData\WsUnprintedRounds.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -9,9 +9,12 @@ namespace GolfEspWS.WsData
         {
             var database = new AccessDatabase(ConfigurationManager.AppSettings["PROVIDER"],
                 ConfigurationManager.AppSettings["DSN"]);
-            database.LoadAllTableData(tableName);
+            if ( !database.LoadAllTableData( tableName ) )
+            {
+                return database.DbDataSet.Tables[tableName];
+            }
             
-            return database.DbDataSet.Tables[tableName];
+            return new DataTable{TableName = tableName};
         }
     }
 }

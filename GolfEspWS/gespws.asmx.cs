@@ -26,6 +26,26 @@ namespace GolfEspWS
             return courses;
         }
 
+        [WebMethod(Description = "Get all PDA Data.")]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public string GetPdaDataIn()
+        {
+            var js = new JavaScriptSerializer();
+            string pdaData = js.Serialize(new WsPDADataIn());
+
+            return pdaData;
+        }
+
+        [WebMethod(Description = "Get all Round Data.")]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public string GetRounds()
+        {
+            var js = new JavaScriptSerializer();
+            string rounds = js.Serialize(new WsRounds());
+
+            return rounds;
+        }
+
         [WebMethod(Description = "Get all course Tees.")]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
         public string GetTees()
@@ -34,6 +54,16 @@ namespace GolfEspWS
             string tees = js.Serialize(new WsTees());
 
             return tees;
+        }
+
+        [WebMethod(Description = "Get all Unprinted Round Data.")]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public string GetUnprintedRounds()
+        {
+            var js = new JavaScriptSerializer();
+            string rounds = js.Serialize(new WsUnprintedRounds());
+
+            return rounds;
         }
 
         //[WebMethod(Description = "Get all Course Names.")]
