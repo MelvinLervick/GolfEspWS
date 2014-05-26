@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.Script.Serialization;
+﻿using System.Web.Script.Serialization;
 using System.Web.Script.Services;
 using System.Web.Services;
+using GolfEspWS.WsData;
 
 namespace GolfEspWS
 {
@@ -21,31 +16,51 @@ namespace GolfEspWS
     [System.Web.Script.Services.ScriptService]
     public class gespws : System.Web.Services.WebService
     {
-        [WebMethod(Description = "Get all Course Names.")]
+        [WebMethod(Description = "Get all Tees.")]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-        public string Courses()
+        public string GetCourses()
         {
-            var database = new AccessDatabase(ConfigurationManager.AppSettings["PROVIDER"], ConfigurationManager.AppSettings["DSN"]);
-            database.LoadAllTableData( "Tees" );
-            var courses = database.DbDataSet.Tables["Tees"];
-            var courseNames = (from c in courses.AsEnumerable() select c.Field<string>("Name")).ToList();
+            var js = new JavaScriptSerializer();
+            string courses = js.Serialize(new WsCourses());
 
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            string strJSON = js.Serialize(courseNames);
-
-            return strJSON;
-            //return courseNames;
+            return courses;
         }
 
-        [WebMethod]
-        public List<string> Tees()
+        [WebMethod(Description = "Get all course Tees.")]
+        [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public string GetTees()
         {
-            var database = new AccessDatabase(ConfigurationManager.AppSettings["PROVIDER"], ConfigurationManager.AppSettings["DSN"]);
-            database.LoadAllTableData("Tees");
-            var tees = database.DbDataSet.Tables["Tees"];
-            var teeNames = (from t in tees.AsEnumerable() select t.Field<string>("TeeName")).ToList();
+            var js = new JavaScriptSerializer();
+            string tees = js.Serialize(new WsTees());
 
-            return teeNames;
+            return tees;
         }
+
+        //[WebMethod(Description = "Get all Course Names.")]
+        //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        //public string Courses()
+        //{
+        //    var database = new AccessDatabase(ConfigurationManager.AppSettings["PROVIDER"], ConfigurationManager.AppSettings["DSN"]);
+        //    database.LoadAllTableData( "Tees" );
+        //    var courses = database.DbDataSet.Tables["Tees"];
+        //    var courseNames = (from c in courses.AsEnumerable() select c.Field<string>("Name")).ToList();
+
+        //    JavaScriptSerializer js = new JavaScriptSerializer();
+        //    string strJSON = js.Serialize(courseNames);
+
+        //    return strJSON;
+        //    //return courseNames;
+        //}
+
+        //[WebMethod]
+        //public List<string> Tees()
+        //{
+        //    var database = new AccessDatabase(ConfigurationManager.AppSettings["PROVIDER"], ConfigurationManager.AppSettings["DSN"]);
+        //    database.LoadAllTableData("Tees");
+        //    var tees = database.DbDataSet.Tables["Tees"];
+        //    var teeNames = (from t in tees.AsEnumerable() select t.Field<string>("TeeName")).ToList();
+
+        //    return teeNames;
+        //}
     }
 }

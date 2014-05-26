@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -13,10 +12,7 @@ namespace GolfEspWS.WsData
 
         public WsCourses()
         {
-            var database = new AccessDatabase( ConfigurationManager.AppSettings["PROVIDER"],
-                ConfigurationManager.AppSettings["DSN"] );
-            database.LoadAllTableData("Tees");
-            var courses = database.DbDataSet.Tables["Tees"];
+            var courses = Common.GetAllTableData("Courses");
 
             Courses = new List<Course>();
             foreach ( var course in courses.AsEnumerable() )
